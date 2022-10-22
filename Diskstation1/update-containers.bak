@@ -1,3 +1,0 @@
-cd /var/services/homes/lechefforthis/Haussteuerung-config/Diskstation1
-sudo git pull
-sudo docker-compose pull ; sudo docker-compose up -d
