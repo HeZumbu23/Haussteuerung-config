@@ -35,6 +35,8 @@ services:
     image: grafana/grafana:latest
     container_name: haussteuerung-grafana
     restart: always
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
     ports:
      - "8889:3000"
     volumes:
