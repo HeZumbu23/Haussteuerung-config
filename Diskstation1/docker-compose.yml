@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+
+  Application:
+    image: mcmdoc120/application:latest
+    container_name: haussteuerung-server
+    depends_on:
+      - influxdb
+      - seq
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - Scheduler__ConfigBasedSchedulePeriods=0, 0, 6, 0, 2, 11, 0, 16, 0, 2, 23, 0, 23, 59, 1
+      - TecalorAPI__TecalorModbusHost=192.168.68.12 #deprecated KVP
+      - Tecalor__TecalorIsgHostOrIp=192.168.68.12
+      - HomematicDevice__HomematicHost=192.168.68.13
+      - InfluxRepository__DatabaseHost=influxdb
+      - Serilog__MiniumLevel__Default=Information
+      - Seq__SeqUrl=http://seq:5341
+
+  influxdb:
+    image: influxdb:1.8.10
+    container_name: haussteuerung-influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    volumes:
+      - /volume1/docker/haussteuerung/influxdb:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: haussteuerung-grafana
+    restart: always
+    ports:
+     - "8889:3000"
+    volumes:
+      - /volume1/docker/haussteuerung/grafana:/var/lib/grafana
+
+  seq:
+    image: datalust/seq:latest
+    container_name: haussteuerung-seq
+    restart: always
+    ports:
+      - "8890:80"
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - /volume1/docker/haussteuerung/seq:/data
