@@ -1,6 +1,8 @@
 #! /bin/bash
 
 # watch out for UNIX line endings
+echo $(Date)
+echo "Starting update script"
 cd /var/services/homes/lechefforthis/Haussteuerung-config/Diskstation1
 echo "pulling docker-compose.yml from git ..."
 git pull
