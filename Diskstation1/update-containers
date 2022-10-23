@@ -7,7 +7,7 @@ cd /var/services/homes/lechefforthis/Haussteuerung-config/Diskstation1
 echo "pulling docker-compose.yml from git ..."
 git pull
 echo "pulling images if necessary ..."
-docker-compose pull 
+/usr/local/bin/docker-compose pull 
 echo "updateing docker containers if necessary ..."
-docker-compose up -d
+/usr/local/bin/docker-compose up -d
 
