@@ -37,6 +37,7 @@ services:
     restart: always
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_SECURITY_ALLOW_EMBEDDING=true     
     ports:
      - "8889:3000"
     volumes:
