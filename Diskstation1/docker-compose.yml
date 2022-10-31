@@ -36,7 +36,7 @@ services:
       - /volume1/docker/haussteuerung/influxdb:/var/lib/influxdb
 
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4.17 # later versions are not supported by Synology because its CPU does not support AVX instructions, see https://jira.mongodb.org/browse/DOCS-14684
     ports: 
       - "27017:27017"    
     volumes:
