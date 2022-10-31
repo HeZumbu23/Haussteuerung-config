@@ -15,12 +15,16 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - Scheduler__ConfigBasedSchedulePeriods=0, 0, 6, 0, 2, 11, 0, 16, 0, 2, 23, 0, 23, 59, 1
+      - Scheduler__MongoDbClientUrl=mongodb://mongodb:27017/
+      - Scheduler__MongoDbDatabase=haussteuerung
+      - Scheduler__MongoDbCollection=Schedules
       - TecalorAPI__TecalorModbusHost=192.168.68.12 #deprecated KVP
       - Tecalor__TecalorIsgHostOrIp=192.168.68.12
       - HomematicDevice__HomematicHost=192.168.68.13
       - InfluxRepository__DatabaseHost=influxdb
       - Serilog__MiniumLevel__Default=Information
       - Seq__SeqUrl=http://seq:5341
+
 
   influxdb:
     image: influxdb:1.8.10
@@ -31,6 +35,13 @@ services:
     volumes:
       - /volume1/docker/haussteuerung/influxdb:/var/lib/influxdb
 
+  mongodb:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"    
+    volumes:
+      - /volume1/docker/haussteuerung/mongodb:/data/db
+      
   grafana:
     image: grafana/grafana:latest
     container_name: haussteuerung-grafana
