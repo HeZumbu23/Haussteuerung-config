@@ -48,6 +48,8 @@ services:
     restart: always
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_SECURITY_ALLOW_EMBEDDING=true    
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true 
     ports:
      - "8889:3000"
     volumes:
